@@ -33,7 +33,7 @@
     if (key.endsWith('cover')) return '视频封面（原图缩小）';
     if (key.startsWith('embryo')) return '动画静帧（未公开作品）';
     if (key === 'chem') return '线上页面截图 · 2026-10-17';
-    if (key === 'qoder-case') return '原始截图 · Qoder CN 桌面会话 · 2026-10-06';
+    if (key === 'qoder-case') return '原始截图 · Qoder CN 桌面会话 · 2026-10-06（侧栏其他文件夹、账号名已打码）';
     return '项目截图（原图缩小，未改内容）';
   }
 
@@ -115,7 +115,7 @@
       <div class="q-grid">
         <figure class="shot reveal">
           <button class="shot-frame" type="button" data-image="qoder-case" aria-label="放大查看原始截图">
-            <span class="badge">原始截图 · 2026-10-06</span>
+            <span class="badge">原始截图 · 2026-10-06 · 已打码</span>
             <img src="${src('qoder-case')}" alt="Qoder CN 桌面会话原始截图：DeepRead 书架标题与篇号修改">
           </button>
           <figcaption>${esc(q.note)}</figcaption>
