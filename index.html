@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>张艳捷 · 作品集</title>
+<meta name="description" content="水产养殖学专业学生，用 AI 把学习和生活里的问题做成能用的东西；10 月开始公开记录。Qoder CN 大使申请作品集。">
+<meta name="color-scheme" content="light">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div id="fatal" class="fatal" hidden></div>
+<noscript><p class="fatal">这个页面需要打开 JavaScript 才能显示。也可以直接看同目录下的 PDF 版。</p></noscript>
+
+<header class="bar" id="bar">
+  <a class="brand" href="#top">张艳捷<em> · 作品集</em></a>
+  <nav class="bar-nav" aria-label="栏目">
+    <a href="#map">地图</a><a href="#qoder">Qoder</a><a href="#public">公开</a><a href="#method">做法</a><a href="#plan">计划</a>
+  </nav>
+  <a class="bar-pdf" id="pdf-link" href="#" download>PDF 版</a>
+</header>
+
+<main>
+  <section class="hero" id="top">
+    <canvas class="pond" id="pond" aria-hidden="true"></canvas>
+    <div class="wrap hero-grid">
+      <div class="hero-copy" id="hero-copy"></div>
+      <div class="stage" id="stage">
+        <div class="orbit" id="orbit"></div>
+        <p class="stage-hint">移动鼠标转一转 · 点开任一张看项目</p>
+      </div>
+    </div>
+    <div class="wrap"><ol class="timeline reveal" id="timeline" aria-label="时间线"></ol></div>
+  </section>
+
+  <section class="section" id="map">
+    <div class="wrap">
+      <p class="kicker">01 · 能力地图</p>
+      <h2 class="reveal">我用 AI 做过什么</h2>
+      <p class="intro reveal">按“碰到的问题”排列，不按技术分类。可以按状态或问题筛选，点开卡片看截图和链接。</p>
+      <div class="filters reveal" id="filters" role="group" aria-label="按状态筛选"></div>
+      <div class="domains reveal" id="domains" role="group" aria-label="按碰到的问题筛选"></div>
+      <div class="grid" id="grid"></div>
+    </div>
+  </section>
+
+  <section class="section tint" id="qoder"></section>
+  <section class="section" id="public"></section>
+  <section class="section tint" id="method"></section>
+  <section class="section" id="plan"></section>
+  <footer class="section foot" id="links"></footer>
+</main>
+
+<dialog class="detail" id="detail" aria-labelledby="detail-title">
+  <button class="detail-close" type="button" data-close aria-label="关闭">×</button>
+  <div class="detail-body" id="detail-body"></div>
+</dialog>
+
+<script src="data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
