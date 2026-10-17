@@ -110,10 +110,20 @@ button { font: inherit; color: inherit; }
   animation: bob var(--dur, 7s) ease-in-out var(--delay, 0s) infinite alternate;
 }
 .pane img {
-  width: 100%; border-radius: 10px; background: var(--card);
+  width: 100%; height: auto; border-radius: 10px; background: var(--ph, var(--card));
   box-shadow: 0 0 0 1px rgba(20, 32, 58, .08), 0 24px 46px -22px rgba(20, 32, 58, .5);
   transition: transform .45s var(--ease), box-shadow .45s var(--ease);
 }
+/* 图还在路上：截图平均色的底框 + 一道流光，看得出“在等”；下载失败（.broken）则明说 */
+.pane:not(.ready) img { color: transparent; }
+.pane:not(.ready):not(.broken) img {
+  background-image: linear-gradient(100deg, transparent 35%, rgba(140, 150, 175, .3) 50%, transparent 65%);
+  background-size: 250% 100%; background-repeat: no-repeat;
+  animation: shimmer 1.5s linear infinite;
+}
+@keyframes shimmer { from { background-position: 150% 0; } to { background-position: -50% 0; } }
+.pane.broken span { opacity: 1; }
+.pane.broken span::after { content: ' · 图没加载出来'; }
 .pane:hover img, .pane:focus-visible img {
   transform: translateZ(60px) scale(1.04);
   box-shadow: 0 0 0 2px var(--accent), 0 34px 60px -24px rgba(20, 32, 58, .6);

@@ -53,26 +53,34 @@
   }
 
   // 首屏截图群的摆位：x/y 是中心点（占舞台百分比），z 是纵深。
+  // 后三项：小图尺寸（先占好位置，图到了不跳）、平均色（图到之前的底色）；
+  // 小图在 assets/img/hero/，尺寸和颜色由 `python build_v2.py hero` 打印，index.html 里的预加载也要同步。
   const PANES = [
-    ['deepread', 'deepread-reader', 46, 30, 62, 60, -4, -2],
-    ['judou', 'judou-profile', 31, 64, 52, 10, 3, 2],
-    ['phase', 'phase', 86, 33, 21, 120, -8, 4],
-    ['embryo', 'embryo-1', 70, 76, 48, 90, 0, -3],
-    ['shiji', 'shiji-today', 9, 30, 19, -40, 10, -5],
-    ['qingjian', 'qingjian', 60, 6, 40, -90, 0, 3],
-    ['chem', 'chem', 93, 72, 17, 30, -6, 6],
-    ['videos', 'judou-cover', 13, 82, 18, 150, 6, -6],
-    ['twin', 'twin-cover', 3, 54, 15, -110, 12, 4],
+    ['deepread', 'deepread-reader', 46, 30, 62, 60, -4, -2, [760, 428], '#f0f3f6'],
+    ['judou', 'judou-profile', 31, 64, 52, 10, 3, 2, [640, 480], '#262626'],
+    ['phase', 'phase', 86, 33, 21, 120, -8, 4, [360, 640], '#282e3c'],
+    ['embryo', 'embryo-1', 70, 76, 48, 90, 0, -3, [640, 360], '#e3ddd4'],
+    ['shiji', 'shiji-today', 9, 30, 19, -40, 10, -5, [320, 569], '#f2f2f2'],
+    ['qingjian', 'qingjian', 60, 6, 40, -90, 0, 3, [520, 349], '#e3eaec'],
+    ['chem', 'chem', 93, 72, 17, 30, -6, 6, [280, 485], '#eae6e1'],
+    ['videos', 'judou-cover', 13, 82, 18, 150, 6, -6, [280, 497], '#4a667c'],
+    ['twin', 'twin-cover', 3, 54, 15, -110, 12, 4, [260, 462], '#d8e3ed'],
   ];
 
   function renderStage() {
     const byId = Object.fromEntries(D.projects.map((p) => [p.id, p]));
-    $('#orbit').innerHTML = PANES.map(([id, key, x, y, w, z, ry, rz], i) => `
+    $('#orbit').innerHTML = PANES.map(([id, key, x, y, w, z, ry, rz, [iw, ih], bg], i) => `
       <button class="pane" type="button" data-project="${id}"
-        style="--x:${x}%;--y:${y}%;--w:${w}%;--z:${z}px;--ry0:${ry}deg;--rz:${rz}deg;--dur:${6 + (i % 4)}s;--delay:-${i * 0.9}s">
-        <img src="${src(key)}" alt="${esc(byId[id].title)} 截图" loading="${i < 4 ? 'eager' : 'lazy'}">
+        style="--x:${x}%;--y:${y}%;--w:${w}%;--z:${z}px;--ry0:${ry}deg;--rz:${rz}deg;--dur:${6 + (i % 4)}s;--delay:-${i * 0.9}s;--ph:${bg}">
+        <img src="assets/img/hero/${key}.webp" width="${iw}" height="${ih}" alt="${esc(byId[id].title)} 截图">
         <span>${esc(byId[id].title)}</span>
       </button>`).join('');
+    // 等图时是流动的底色框，图到了换成截图；下载失败要明说，不能一直假装在等。
+    $$('#orbit .pane img').forEach((img) => {
+      const settle = () => img.parentNode.classList.add(img.naturalWidth ? 'ready' : 'broken');
+      if (img.complete) settle();
+      else { img.addEventListener('load', settle); img.addEventListener('error', settle); }
+    });
   }
 
   const FILTERS = [
